@@ -15,25 +15,31 @@ const FullContent = styled.p`
     width: 90%;
 `;
 
-const buildFullView = ({ review, date, }) =>
-    <div className='row'>
-        <p className='col-sm-3'>
-            {review?.author}
-        </p>
-        <div className='col'>
-            {date}
-        </div>
+const date = ({ date }) =>
+    <div className='col'
+        style={{ 'opacity': 0.75 }}>
+        {(new Date(date)).toLocaleDateString('en-US')}
     </div>
 ;
 
-const buildCardView = ({ review, comment, date, }) =>
+const author = ({ author, size }) =>
+    <div className={size}
+        style={{'font-weight': 'bold'}}>
+        {author}
+    </div>
+;
+
+const buildFullView = ({ review, }) =>
     <div className='row'>
-        <div className='col-sm-5'>
-            {review?.author}
-        </div>
-        <div className='col'>
-            {date}
-        </div>
+        {author({ author: review?.author, size: 'col-sm-3' })}
+        {date({ date: review?.published_at, })}
+    </div>
+;
+
+const buildCardView = ({ review, comment, }) =>
+    <div className='row'>
+        {author({ author: review?.author, size: 'col-sm-5' })}
+        {date({ date: review?.published_at, })}
         {comment ? <div className='col'> {comment} </div> : <></>}
     </div>
 ;
@@ -55,11 +61,9 @@ export default ({ review, showFull = false }) => {
         ? messageEmoji
         : undefined;
 
-    let date = (new Date(review?.published_at)).toLocaleDateString('en-US');
-    
     showFull
-        ? content = buildFullView({ review, date })
-        : content = buildCardView({ review, comment, date });
+        ? content = buildFullView({ review })
+        : content = buildCardView({ review, comment });
 
     return (
         <div className='card shadow-sm'>

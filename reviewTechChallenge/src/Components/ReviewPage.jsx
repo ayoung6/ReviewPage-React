@@ -16,14 +16,20 @@ export default ({ reviews, onclick }) => {
     const numCols = 3;
 
     // Bootstrap uses 12 cols
-    let cardSize = 'py-3 col-sm-' + (12 / numCols);
+    let cardClasses = 'pt-3 col-sm-' + (12 / numCols);
 
     return (
-        <div className='container'>
-                <div className='row g-3'>
+        <div
+            className='container'>
+            <div
+                className='row g-3'>
                     {reviews?.map((review) =>
-                        <div className={cardSize} key={review.id} onClick={() => onclick(review)}>
-                            <ReviewBox review={review} />
+                        <div
+                            className={cardClasses}
+                            key={review.id}
+                            onClick={() => onclick(review)}>
+                            <ReviewBox
+                                review={review} />
                         </div>
                     )}
                 </div>

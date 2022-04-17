@@ -1,19 +1,27 @@
 ﻿import React from 'react';
-import { Button } from 'react-bootstrap';
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownItem, MDBDropdownLink, MDBTextArea, MDBDropdownMenu, MDBBtn } from 'mdb-react-ui-kit';
 
 const dropDownMenu = ({ dropMenuIcon, onEditClick, onDeleteClick }) =>
     <MDBDropdown>
-        <MDBDropdownToggle className='btn btn-secondary'>
+        <MDBDropdownToggle
+            className='btn btn-secondary'>
             {dropMenuIcon}
         </MDBDropdownToggle>
 
         <MDBDropdownMenu>
             <MDBDropdownItem>
-                <MDBDropdownLink href="#" onClick={() => onEditClick()}> Edit </MDBDropdownLink>
+                <MDBDropdownLink
+                    href="#"
+                    onClick={() => onEditClick()}>
+                    Edit
+                </MDBDropdownLink>
             </MDBDropdownItem>
             <MDBDropdownItem>
-                <MDBDropdownLink href="#" onClick={() => onDeleteClick()}> Delete </MDBDropdownLink>
+                <MDBDropdownLink
+                    href="#"
+                    onClick={() => onDeleteClick()}>
+                    Delete
+                </MDBDropdownLink>
             </MDBDropdownItem>
         </MDBDropdownMenu>
     </MDBDropdown>
@@ -70,20 +78,23 @@ export default ({ review, commentHandlers }) => {
                     onKeyDown={(event) => onEnterPress(event)}
                 />
             </div>
-            <div className='col-sm-1 ml-auto mr-3'>
+            <div
+                className='col-sm-1 ml-auto mr-3'>
                 { button({ label: 'Submit', onclick: onSubmitClick }) }
             </div>
         </div>
     ;
 
     const viewComment =
-        <div className='row'>
+        <div
+            className='row'>
             <div
                 className='ml-3 col-sm-10'
                 style={{ height: '100%' }}>
                 {inputValue}
             </div>
-            <div className='col-sm-1 ml-auto mr-3'>
+            <div
+                className='col-sm-1 ml-auto mr-3'>
                 {dropDownMenu({ dropMenuIcon, onEditClick, onDeleteClick })}
             </div>
         </div>
@@ -96,9 +107,13 @@ export default ({ review, commentHandlers }) => {
     if (isEdit) content = newComment;
 
     return (
-        <div className='py-3'>
-            <div className='py-3 card' style={{ 'min-height': '10rem' }}>
-                <div className='container'>
+        <div
+            className='py-3'>
+            <div
+                className='py-3 card'
+                style={{ 'min-height': '10rem' }}>
+                <div
+                    className='container'>
                     {content}
                 </div>
             </div>

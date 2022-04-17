@@ -21,10 +21,14 @@ const App = props => {
     const getPage = payload => {
         switch (payload) {
             case 'Reviews':
-                return <ReviewPage reviews={state?.reviews} onclick={getReview} />;
+                return <ReviewPage
+                    reviews={state?.reviews}
+                    onclick={getReview} />;
 
             case 'Review':
-                return <ReviewDetails review={state?.review} commentHandlers={{ put: putComment, edit: editComment, isEdit: state.editComment }} />;
+                return <ReviewDetails
+                    review={state?.review}
+                    commentHandlers={{ put: putComment, edit: editComment, isEdit: state.editComment }} />;
         };
         return <h1> 404 </h1>;
     };
@@ -53,7 +57,8 @@ const App = props => {
 
     return (
         <>
-            <Header back={() => navHome('Reviews')} />
+            <Header
+                back={() => navHome('Reviews')} />
             {content}
         </>
     );

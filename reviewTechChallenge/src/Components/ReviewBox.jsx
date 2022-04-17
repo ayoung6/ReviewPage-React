@@ -4,32 +4,7 @@ import { ReviewStars as Stars } from '.';
 
 const messageEmoji = '💬';
 
-const FooterDiv = styled.div`
-    display: inline-block;
-    color: black;
-    width: 100%;
-    float:left;
-`;
-
-const FloatDiv = styled.div`
-    float: left;
-`
-
-const DateP = styled.p`
-    text-align: center;
-`;
-
-const AuthorP = styled.p`
-    text-align: left;
-    bottom: 0;
-`
-
-const PlaceP = styled.h1`
-    color: black;
-`;
-
 const TruncContent = styled.p`
-    color: black;
     width: 90%;
     overflow: hidden;
     white-space: nowrap;
@@ -37,9 +12,31 @@ const TruncContent = styled.p`
 `;
 
 const FullContent = styled.p`
-    color: black;
     width: 90%;
 `;
+
+const buildFullView = ({ review, }) =>
+    <div className='row'>
+        <p className='col-sm-3'>
+            {review?.author}
+        </p>
+        <div className='col'>
+            {review?.published_at}
+        </div>
+    </div>
+;
+
+const buildCardView = ({ review, comment, }) =>
+    <div className='row'>
+        <div className='col-sm-5'>
+            {review?.author}
+        </div>
+        <div className='col'>
+            {review?.published_at}
+        </div>
+        {comment ? <div className='col'> {comment} </div> : <></>}
+    </div>
+;
 
 /**
  * props.review: {
@@ -52,36 +49,28 @@ const FullContent = styled.p`
  * }
  */
 
-function ReviewBox({ review, showFull }) {
-    let date = (new Date(review.published_at)).toLocaleDateString('en-US');
-    let content = showFull
-        ? <FullContent>{review.content}</FullContent>
-        : <TruncContent>{review.content}</TruncContent>;
-    let comment = !showFull && review?.comment
-        ? <h1>{messageEmoji}</h1>
-        : <></>;
+export default ({ review, showFull = false }) => {
+    let content;
+    let comment = review?.comment
+        ? messageEmoji
+        : undefined;
+
+    review.published_at = (new Date(review?.published_at)).toLocaleDateString('en-US');
+    
+    showFull
+        ? content = buildFullView({ review })
+        : content = buildCardView({ review, comment });
 
     return (
-        <>
-            <PlaceP>
-                {review.place}
-            </PlaceP>
-            <Stars rating={ review.rating } />
-            {content}
-
-            <FooterDiv>
-                <FloatDiv>
-                    <AuthorP>{review.author}</AuthorP>
-                </FloatDiv>
-                <FloatDiv>
-                    <DateP>{date}</DateP>
-                </FloatDiv>
-                <FloatDiv>
-                    {comment}
-                </FloatDiv>
-            </FooterDiv>
-        </>
+        <div className='card shadow-sm'>
+            <div className="card-body">
+                <h3> {review?.place} </h3>
+                <Stars rating={review?.rating} />
+                <p className='card-text'>
+                    {showFull ? <FullContent>{review?.content}</FullContent> : <TruncContent>{review?.content}</TruncContent>}
+                </p>
+                {content}
+            </div>
+        </div>
     );
-}
-
-export default ReviewBox;
+};

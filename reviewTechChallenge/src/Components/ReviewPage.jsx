@@ -1,30 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
 import ReviewBox from './ReviewBox';
-
-const BorderDiv = styled.div`
-    padding-left: 3rem;
-`;
-
-const ReviewPageDiv = styled.div`
-    display: inline-block;
-    position: relative;
-`;
-
-const BoxDiv = styled.div`
-    height: 18.75em;
-    width: 18.75em;
-    background: white;
-    font-size: small;
-    position: relative;
-    margin: 5px;
-    padding-left: 10px;
-    display: inline-block;
-    :hover {
-        cursor: pointer;
-        background: beige;
-    }
-`;
 
 /**
  * reviews: [{
@@ -37,14 +12,21 @@ const BoxDiv = styled.div`
  * },]
  */
 
-export default ({ reviews, onclick }) => 
-    <ReviewPageDiv>
-        <BorderDiv>
-            {reviews?.map((review) =>
-                <BoxDiv key={review.id} onClick={ () => onclick(review)}>
-                    <ReviewBox review={review} />
-                </BoxDiv>
-            )}
-        </BorderDiv>
-    </ReviewPageDiv>
-;
+export default ({ reviews, onclick }) => {
+    const numCols = 3;
+
+    // Bootstrap uses 12 cols
+    let cardSize = 'py-3 col-sm-' + (12 / numCols);
+
+    return (
+        <div className='container'>
+                <div className='row g-3'>
+                    {reviews?.map((review) =>
+                        <div className={cardSize} key={review.id} onClick={() => onclick(review)}>
+                            <ReviewBox review={review} />
+                        </div>
+                    )}
+                </div>
+            </div>
+    );
+};

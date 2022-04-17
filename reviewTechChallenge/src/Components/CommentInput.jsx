@@ -70,7 +70,7 @@ export default ({ review, commentHandlers }) => {
 
     const newComment =
         <div className='row'>
-            <div className='col-sm-10 ml-3'>
+            <div className='col-sm-11 ml-3'>
                 <MDBTextArea
                     label={labelName}
                     defaultValue={editValue}
@@ -89,7 +89,7 @@ export default ({ review, commentHandlers }) => {
         <div
             className='row'>
             <div
-                className='ml-3 col-sm-10'
+                className='ml-3 col-sm-11'
                 style={{ height: '100%' }}>
                 {inputValue}
             </div>

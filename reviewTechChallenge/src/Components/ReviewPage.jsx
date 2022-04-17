@@ -16,7 +16,7 @@ export default ({ reviews, onclick }) => {
     const numCols = 3;
 
     // Bootstrap uses 12 cols
-    let cardClasses = 'pt-3 col-sm-' + (12 / numCols);
+    let cardClasses = 'text-decoration-none text-reset pt-3 col-sm-' + (12 / numCols);
 
     return (
         <div
@@ -24,13 +24,14 @@ export default ({ reviews, onclick }) => {
             <div
                 className='row g-3'>
                     {reviews?.map((review) =>
-                        <div
+                        <a
+                            href='#'
                             className={cardClasses}
                             key={review.id}
                             onClick={() => onclick(review)}>
                             <ReviewBox
                                 review={review} />
-                        </div>
+                        </a>
                     )}
                 </div>
             </div>

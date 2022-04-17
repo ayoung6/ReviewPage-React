@@ -2,16 +2,16 @@
 
 export default ({ back }) => 
     <header
-        className='p-3 bg-dark text-white'>
+        className='p-3 bg-dark'>
         <div
             className='container'>
             <div
                 className='col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0'>
                 <a
-                    href='#' >
+                    href='#'
+                    className='text-decoration-none text-secondary'>
                     <h1
-                        onClick={back}
-                        className='text-secondary'>
+                        onClick={back}>
                         Reviews
                     </h1>
                 </a>

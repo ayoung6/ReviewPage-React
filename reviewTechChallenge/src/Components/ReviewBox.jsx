@@ -15,24 +15,24 @@ const FullContent = styled.p`
     width: 90%;
 `;
 
-const buildFullView = ({ review, }) =>
+const buildFullView = ({ review, date, }) =>
     <div className='row'>
         <p className='col-sm-3'>
             {review?.author}
         </p>
         <div className='col'>
-            {review?.published_at}
+            {date}
         </div>
     </div>
 ;
 
-const buildCardView = ({ review, comment, }) =>
+const buildCardView = ({ review, comment, date, }) =>
     <div className='row'>
         <div className='col-sm-5'>
             {review?.author}
         </div>
         <div className='col'>
-            {review?.published_at}
+            {date}
         </div>
         {comment ? <div className='col'> {comment} </div> : <></>}
     </div>
@@ -55,11 +55,11 @@ export default ({ review, showFull = false }) => {
         ? messageEmoji
         : undefined;
 
-    review.published_at = (new Date(review?.published_at)).toLocaleDateString('en-US');
+    let date = (new Date(review?.published_at)).toLocaleDateString('en-US');
     
     showFull
-        ? content = buildFullView({ review })
-        : content = buildCardView({ review, comment });
+        ? content = buildFullView({ review, date })
+        : content = buildCardView({ review, comment, date });
 
     return (
         <div className='card shadow-sm'>

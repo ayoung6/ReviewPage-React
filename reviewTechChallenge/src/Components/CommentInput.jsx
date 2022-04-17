@@ -1,5 +1,6 @@
 ﻿import React from 'react';
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownItem, MDBDropdownLink, MDBTextArea, MDBDropdownMenu, MDBBtn } from 'mdb-react-ui-kit';
+import { author, date } from './ReviewBox';
 
 const dropDownMenu = ({ dropMenuIcon, onEditClick, onDeleteClick }) =>
     <MDBDropdown>
@@ -52,6 +53,8 @@ export default ({ review, commentHandlers }) => {
 
     const onSubmitClick = () => {
         review.comment = inputValue;
+        review.commentDate = (Date.now());
+        review.commentAuthor = 'Bossman Stan';
         put(review);
     };
 
@@ -69,20 +72,22 @@ export default ({ review, commentHandlers }) => {
     };
 
     const newComment =
-        <div className='row'>
-            <div className='col-sm-11 ml-3'>
-                <MDBTextArea
-                    label={labelName}
-                    defaultValue={editValue}
-                    onChange={onInputChange}
-                    onKeyDown={(event) => onEnterPress(event)}
-                />
+        <>
+            <div className='row'>
+                <div className='col-sm-11 ml-3'>
+                    <MDBTextArea
+                        label={labelName}
+                        defaultValue={editValue}
+                        onChange={onInputChange}
+                        onKeyDown={(event) => onEnterPress(event)}
+                    />
+                </div>
+                <div
+                    className='col-sm-1 ml-auto mr-3'>
+                    { button({ label: 'Submit', onclick: onSubmitClick }) }
+                </div>
             </div>
-            <div
-                className='col-sm-1 ml-auto mr-3'>
-                { button({ label: 'Submit', onclick: onSubmitClick }) }
-            </div>
-        </div>
+        </>
     ;
 
     const viewComment =
@@ -97,6 +102,13 @@ export default ({ review, commentHandlers }) => {
                 className='col-sm-1 ml-auto mr-3'>
                 {dropDownMenu({ dropMenuIcon, onEditClick, onDeleteClick })}
             </div>
+            {review?.comment ?
+                <div className='row py-3'>
+                    {author({ author: review?.commentAuthor, size: 'col-sm-3' })}
+                    {date({ date: review?.commentDate, })}
+                </div>
+                : <> </>
+            }
         </div>
     ;
 

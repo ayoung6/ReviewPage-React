@@ -15,14 +15,14 @@ const FullContent = styled.p`
     width: 90%;
 `;
 
-const date = ({ date }) =>
+export const date = ({ date }) =>
     <div className='col'
         style={{ 'opacity': 0.75 }}>
         {(new Date(date)).toLocaleDateString('en-US')}
     </div>
 ;
 
-const author = ({ author, size }) =>
+export const author = ({ author, size }) =>
     <div className={size}
         style={{'font-weight': 'bold'}}>
         {author}
